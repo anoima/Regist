@@ -18,11 +18,14 @@ public class SecondActivity extends Activity {
       super.onCreate(savedInstanceState);
         setContentView(R.layout.content_second);
         Intent intent =getIntent();
-        String first_name=intent.getStringExtra("fname");
+        String first_name=intent.getStringExtra("firstname");
+        String last_name=intent.getStringExtra("lastname");
 
         Toast.makeText(this, "Successfully Registration!", Toast.LENGTH_LONG).show();
-        textView=(TextView) findViewById(R.id.txt);
+        textView=(TextView) findViewById(R.id.first_name);
         textView.setText(first_name);
+        textView=(TextView) findViewById(R.id.last_name);
+        textView.setText(last_name);
     }
 
 }
