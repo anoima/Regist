@@ -139,36 +139,16 @@
         android:layout_alignLeft="@+id/input_password"
         android:layout_alignStart="@+id/input_password" />
 
-    <CheckBox
-        android:text="Male"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/male"
-        android:checked="false"
-        android:layout_below="@+id/email_address"
-        android:layout_marginTop="12dp"
-        android:layout_alignLeft="@+id/email_address"
-        android:layout_alignStart="@+id/email_address" />
-
-    <CheckBox
-        android:text="Female"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/female"
-        android:layout_alignBaseline="@+id/male"
-        android:layout_alignBottom="@+id/male"
-        android:layout_alignRight="@+id/email_address"
-        android:layout_alignEnd="@+id/email_address" />
 
     <Spinner
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:inputType="textPersonName"
-        android:layout_below="@+id/male"
+        android:layout_below="@+id/rgroup"
         android:layout_marginTop="12dp"
-        android:layout_alignLeft="@+id/male"
-        android:layout_alignStart="@+id/male" />
+        android:layout_alignLeft="@+id/rgroup"
+        android:layout_alignStart="@+id/rgroup" />
 
     <TextView
         android:text="Registration"
@@ -185,6 +165,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/user_name"
+        android:inputType="textPersonName"
         android:background="@color/Labelbg"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="32dp"
@@ -192,6 +173,37 @@
         android:layout_below="@+id/textView2"
         android:layout_toRightOf="@+id/fname"
         android:layout_toEndOf="@+id/fname" />
+
+    <RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/email_address"
+    android:id="@+id/rgroup"
+    android:layout_marginTop="12dp"
+    android:layout_alignLeft="@+id/email_address"
+    android:layout_alignStart="@+id/email_address"
+    >
+
+    <RadioButton
+        android:text="Female"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/female"
+        android:checked="true"
+        android:layout_above="@+id/spinner"
+        android:layout_alignRight="@+id/spinner"
+        android:layout_alignEnd="@+id/spinner"
+        android:onClick="selectgender"/>
+
+    <RadioButton
+        android:text="Male"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/male"
+        android:checked="false"
+        android:onClick="selectgender"/>
+
+</RadioGroup>
 
 
 </RelativeLayout>

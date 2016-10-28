@@ -10,15 +10,19 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
     protected EditText  first_name,last_name,input_password,email_address,user_name;
     Spinner spinner;
-    String firstname,lastname,password,email,username;
+    String firstname,lastname,password,email,username,gender,country,notification;
     Button regist;
+    Switch switch_notification;
     ArrayAdapter<CharSequence> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class MainActivity extends Activity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getBaseContext(),parent.getItemAtPosition(position)+" selected",Toast.LENGTH_LONG).show();
+                country= (String) parent.getItemAtPosition(position);
             }
 
             @Override
@@ -45,6 +49,17 @@ public class MainActivity extends Activity {
         user_name=(EditText) findViewById(R.id.user_name);
         input_password=(EditText) findViewById(R.id.input_password);
         regist=(Button) findViewById(R.id.regist);
+        switch_notification = (Switch) findViewById(R.id.notification);
+        switch_notification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    notification="Notifications enabled";
+                }else{
+                    notification="Notifications disabled";
+                }
+            }
+        });
         regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,17 +74,38 @@ public class MainActivity extends Activity {
             Toast.makeText(this, "Registration has failed",Toast.LENGTH_SHORT).show();
         }
         else{
-            onSignupSuccess();
+            RegisterSuccess();
         }
     }
-    public void onSignupSuccess(){
-        Intent intent = new Intent(this, SecondActivity.class);
+    public void RegisterSuccess(){
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
         intent.putExtra("firstname",firstname);
         intent.putExtra("lastname",lastname);
         intent.putExtra("email",email);
         intent.putExtra("password",password);
         intent.putExtra("username",username);
-        startActivity(intent);
+        intent.putExtra("gender",gender);
+        intent.putExtra("country",country);
+        intent.putExtra("notification",notification);
+        MainActivity.this.startActivity(intent);
+    }
+    public void selectgender(View view)
+    {
+        boolean checked=((RadioButton) view).isChecked();
+        switch (view.getId()){
+            case R.id.male:
+                if(checked)
+                {
+                    gender="Male";
+                }
+                break;
+            case R.id.female:
+                if(checked)
+                {
+                    gender="Female";
+                }
+                break;
+        }
     }
     public boolean validate(){
         boolean valid=true;
@@ -90,10 +126,9 @@ public class MainActivity extends Activity {
             valid=false;
         }
         if(email.isEmpty()||!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            email_address.setError("Please Enter valid Email Addres");
+            email_address.setError("Please Enter valid Email Address");
             valid=false;
         }
-
         return valid;
     }
     private void intialize() {
@@ -103,4 +138,5 @@ public class MainActivity extends Activity {
         password=input_password.getText().toString().trim();
         username=user_name.getText().toString().trim();
     }
+
 }
